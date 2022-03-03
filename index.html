@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <h1>Calculadora de juros compostos</h1>
+      <label for="initial-value-input">
+        Valor inicial
+        <input
+          type="text"
+          id="initial-value-input"
+          placeholder="Valor inicial"
+        />
+      </label>
+      <label for="capital-injection-input">
+        Aportes mensais
+        <input
+          type="text"
+          id="capital-injection-input"
+          placeholder="Aportes mensais"
+        />
+      </label>
+      <label for="growth-rate-input">
+        Taxa de crescimento anual de aportes
+        <input
+          type="text"
+          id="growth-rate-input"
+          placeholder="taxa de aumento de aportes a cada 1 ano"
+        />
+      </label>
+      <label for="interest-rate-input">
+        Taxa de juros
+        <input
+          type="text"
+          id="interest-rate-input"
+          placeholder="taxa de juros"
+        />
+      </label>
+      <label for="total-period-input">
+        Tempo de investimento
+        <input
+          type="text"
+          id="total-period-input"
+          placeholder="duração de investimento"
+        />
+      </label>
+      <select name="results-interval" id="results-interval">
+        <option value="invalid"  selected disabled>
+          Escolha um periodo para seu cálculo
+        </option>
+        <option value="yearly">Anual</option>
+        <option value="monthly">Mensal</option>
+      </select>
+      <div class="buttons">
+        <button type="submit" id="calculate-button">Calcular</button>
+        <button type="reset" id="clean-button">Limpar</button>
+      </div>
+    </div>
+    <div class="results">
+      <div>
+        Resultado total
+        <div id="total-result"></div>
+      </div>
+      <div>
+        Total investido
+        <div id="total-invested"></div>
+      </div>
+      <div>
+        Total de juros
+        <div id="total-interests"></div>
+      </div>
+    </div>
+    <script src="index.js" type="module"></script>
+  </body>
+</html>
