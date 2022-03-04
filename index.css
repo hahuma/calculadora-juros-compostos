@@ -9,6 +9,10 @@ input,
 select {
   padding: 20px;
   margin: 10px 0;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid black;
+  background-color: transparent;
 }
 label {
   display: flex;
@@ -23,8 +27,8 @@ button {
 }
 
 .buttons {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .results {
@@ -33,4 +37,26 @@ button {
   flex-direction: row;
   margin: 100px 33%;
   justify-content: center;
+}
+
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+label div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+}
+
+label div span {
+  margin: auto 5px;
+}
+
+label div input {
+  width: 100%;
+  
 }

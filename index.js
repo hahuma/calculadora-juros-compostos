@@ -56,6 +56,16 @@ class Formmater {
       minimumFractionDigits: 2,
     }).format(value);
   }
+
+  static monthToYearPercentage(yearlyPercentage) {
+    return ((Math.pow(yearlyPercentage / 100 + 1, 1 / 12) - 1) * 100).toFixed(
+      2
+    );
+  }
+
+  static yearToMonthPercentage(monthlyPercentage) {
+    return ((Math.pow(1 + monthlyPercentage / 100, 12) - 1) * 100).toFixed(2);
+  }
 }
 
 class CompoundInterestsCalculator {
@@ -170,6 +180,51 @@ class EventCreator {
     totalInterests.innerText = Formmater.transformToReal(0);
     totalInvested.innerText = Formmater.transformToReal(0);
     totalResult.innerText = Formmater.transformToReal(0);
+
+    let firstResultIntervalChange = true;
+    let lastResultInterval = resultsInterval.value;
+    resultsInterval.addEventListener("change", (event) => {
+      const periodSpan = document.querySelector(`.period-span`);
+      const interestSpan = document.querySelector(`.interest-span`);
+
+      if(resultsInterval.value == 'yearly') {
+        periodSpan.innerText = "Tempo de investimento anual"
+        interestSpan.innerText = "Taxa anual de juros"
+      }
+
+
+      if(resultsInterval.value == 'monthly') {
+        periodSpan.innerText = "Tempo de investimento mensal"
+        interestSpan.innerText = "Taxa mensal de juros"
+      }
+
+      if (
+        resultsInterval.value === "yearly" &&
+        !firstResultIntervalChange &&
+        lastResultInterval != resultsInterval.value
+      ) {
+        interestRate.value = Formmater.yearToMonthPercentage(
+          interestRate.value
+        );
+
+        totalPeriod.value = totalPeriod.value / 12;
+      }
+
+      if (
+        resultsInterval.value === "monthly" &&
+        !firstResultIntervalChange &&
+        lastResultInterval != resultsInterval.value
+      ) {
+        interestRate.value = Formmater.monthToYearPercentage(
+          interestRate.value
+        );
+
+        totalPeriod.value = totalPeriod.value * 12;
+      }
+
+      firstResultIntervalChange = false;
+      lastResultInterval = resultsInterval.value;
+    });
 
     calculateButton.addEventListener("click", (event) => {
       const compoundInterestsCalculator = new CompoundInterestsCalculator({

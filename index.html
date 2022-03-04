@@ -12,51 +12,65 @@
       <h1>Calculadora de juros compostos</h1>
       <label for="initial-value-input">
         Valor inicial
-        <input
-          type="text"
-          id="initial-value-input"
-          placeholder="Valor inicial"
-        />
+        <div>
+          <span>R$</span>
+          <input
+            type="number"
+            id="initial-value-input"
+            placeholder="R$ 0,00"
+          />
+        </div>
       </label>
       <label for="capital-injection-input">
         Aportes mensais
-        <input
-          type="text"
-          id="capital-injection-input"
-          placeholder="Aportes mensais"
-        />
+        <div>
+          <span>R$</span>
+
+          <input
+            type="number"
+            id="capital-injection-input"
+            placeholder="R$ 0,00"
+          />
+        </div>
       </label>
       <label for="growth-rate-input">
         Taxa de crescimento anual de aportes
-        <input
-          type="text"
-          id="growth-rate-input"
-          placeholder="taxa de aumento de aportes a cada 1 ano"
-        />
-      </label>
-      <label for="interest-rate-input">
-        Taxa de juros
-        <input
-          type="text"
-          id="interest-rate-input"
-          placeholder="taxa de juros"
-        />
-      </label>
-      <label for="total-period-input">
-        Tempo de investimento
-        <input
-          type="text"
-          id="total-period-input"
-          placeholder="duração de investimento"
-        />
+        <div>
+          <span>%</span>
+          <input
+            type="number"
+            id="growth-rate-input"
+            placeholder="0%"
+          />
+        </div>
       </label>
       <select name="results-interval" id="results-interval">
-        <option value="invalid"  selected disabled>
+        <option value="invalid" selected disabled>
           Escolha um periodo para seu cálculo
         </option>
         <option value="yearly">Anual</option>
         <option value="monthly">Mensal</option>
       </select>
+      <label for="interest-rate-input">
+        <span class="interest-span">Taxa de juros</span>
+        <div>
+          <span>%</span>
+          <input
+            type="number"
+            id="interest-rate-input"
+            placeholder="0%"
+          />
+        </div>
+      </label>
+      <label for="total-period-input">
+        <span class="period-span">Tempo de investimento</span>
+        <input
+          type="number"
+          id="total-period-input"
+          placeholder="duração de investimento"
+        />
+      </label>
+
       <div class="buttons">
         <button type="submit" id="calculate-button">Calcular</button>
         <button type="reset" id="clean-button">Limpar</button>
