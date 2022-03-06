@@ -185,19 +185,31 @@ class EventCreator {
 
     const loadMasks = (
       initialValue = this.initialValueInput,
-      capitalInjection = this.capitalInjectionInput
+      capitalInjection = this.capitalInjectionInput,
+      interestRate = this.interestRateInput,
+      growthRate = this.growthRateInput
     ) =>
       (function () {
         jQuery(`#${initialValue}`).maskMoney({
           thousands: "",
           decimal: ",",
-          allowZero: true
-
+          allowZero: true,
         });
         jQuery(`#${capitalInjection}`).maskMoney({
           thousands: "",
           decimal: ",",
-          allowZero: true
+          allowZero: true,
+        });
+
+        jQuery(`#${interestRate}`).maskMoney({
+          thousands: "",
+          decimal: ",",
+          allowZero: true,
+        });
+        jQuery(`#${growthRate}`).maskMoney({
+          thousands: "",
+          decimal: ",",
+          allowZero: true,
         });
       })();
     jQuery(loadMasks());
