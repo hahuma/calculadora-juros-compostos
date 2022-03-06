@@ -5,6 +5,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="index.css" />
+    <script
+      src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"
+      type="text/javascript"
+    ></script>
+
+    <script
+      src="https://plentz.github.io/jquery-maskmoney/javascripts/jquery.maskMoney.min.js"
+      type="text/javascript"
+    ></script>
+
     <title>Document</title>
   </head>
   <body>
@@ -14,11 +24,7 @@
         Valor inicial
         <div>
           <span>R$</span>
-          <input
-            type="number"
-            id="initial-value-input"
-            placeholder="R$ 0,00"
-          />
+          <input type="text" id="initial-value-input" placeholder="R$ 0,00" />
         </div>
       </label>
       <label for="capital-injection-input">
@@ -27,7 +33,7 @@
           <span>R$</span>
 
           <input
-            type="number"
+            type="text"
             id="capital-injection-input"
             placeholder="R$ 0,00"
           />
@@ -37,11 +43,7 @@
         Taxa de crescimento anual de aportes
         <div>
           <span>%</span>
-          <input
-            type="number"
-            id="growth-rate-input"
-            placeholder="0%"
-          />
+          <input type="number" id="growth-rate-input" placeholder="0%" />
         </div>
       </label>
       <select name="results-interval" id="results-interval">
@@ -55,11 +57,7 @@
         <span class="interest-span">Taxa de juros</span>
         <div>
           <span>%</span>
-          <input
-            type="number"
-            id="interest-rate-input"
-            placeholder="0%"
-          />
+          <input type="number" id="interest-rate-input" placeholder="0%" />
         </div>
       </label>
       <label for="total-period-input">

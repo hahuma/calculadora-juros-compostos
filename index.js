@@ -117,7 +117,6 @@ class CompoundInterestsCalculator {
     for (let i = 1; i <= this.totalPeriod; i++) {
       const interest = 1 + this.interestRate;
       const valueWithInterest = value * interest;
-      console.log('chamou')
       value = valueWithInterest + this.capitalInjection;
 
       totalInvested = totalInvested + this.capitalInjection;
@@ -183,6 +182,25 @@ class EventCreator {
     totalInterests.innerText = Formmater.transformToReal(0);
     totalInvested.innerText = Formmater.transformToReal(0);
     totalResult.innerText = Formmater.transformToReal(0);
+
+    const loadMasks = (
+      initialValue = this.initialValueInput,
+      capitalInjection = this.capitalInjectionInput
+    ) =>
+      (function () {
+        jQuery(`#${initialValue}`).maskMoney({
+          thousands: "",
+          decimal: ",",
+          allowZero: true
+
+        });
+        jQuery(`#${capitalInjection}`).maskMoney({
+          thousands: "",
+          decimal: ",",
+          allowZero: true
+        });
+      })();
+    jQuery(loadMasks());
 
     let firstResultIntervalChange = true;
     let lastResultInterval = resultsInterval.value;
