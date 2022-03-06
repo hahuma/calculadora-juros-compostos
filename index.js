@@ -96,7 +96,10 @@ class CompoundInterestsCalculator {
       } = Formmater.format(validatedValues);
 
       this.initialValue = initialValue;
-      this.interestRate = interestRate / 100;
+      this.interestRate =
+        this.resultsInterval === "yearly"
+          ? Formmater.monthToYearPercentage(interestRate) / 100
+          : interestRate / 100;
       this.growthRate = growthRate / 100;
       this.capitalInjection = capitalInjection;
       this.totalPeriod =
@@ -114,7 +117,7 @@ class CompoundInterestsCalculator {
     for (let i = 1; i <= this.totalPeriod; i++) {
       const interest = 1 + this.interestRate;
       const valueWithInterest = value * interest;
-
+      console.log('chamou')
       value = valueWithInterest + this.capitalInjection;
 
       totalInvested = totalInvested + this.capitalInjection;
@@ -187,15 +190,14 @@ class EventCreator {
       const periodSpan = document.querySelector(`.period-span`);
       const interestSpan = document.querySelector(`.interest-span`);
 
-      if(resultsInterval.value == 'yearly') {
-        periodSpan.innerText = "Tempo de investimento anual"
-        interestSpan.innerText = "Taxa anual de juros"
+      if (resultsInterval.value == "yearly") {
+        periodSpan.innerText = "Tempo de investimento anual";
+        interestSpan.innerText = "Taxa anual de juros";
       }
 
-
-      if(resultsInterval.value == 'monthly') {
-        periodSpan.innerText = "Tempo de investimento mensal"
-        interestSpan.innerText = "Taxa mensal de juros"
+      if (resultsInterval.value == "monthly") {
+        periodSpan.innerText = "Tempo de investimento mensal";
+        interestSpan.innerText = "Taxa mensal de juros";
       }
 
       if (
