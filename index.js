@@ -15,7 +15,7 @@ class Validator {
     const valuesArray = Object.entries(valuesObject);
 
     const isInvalid = valuesArray.some((value) => {
-      const floatValue = parseFloat(value[1].replace(/,/g, ""));
+      const floatValue = parseFloat(value[1].replace(/\./g, '').replace(/,/g, ""));
       const isNaN = Number.isNaN(floatValue);
       const isNegative = Number(floatValue) < 0;
 
@@ -25,7 +25,7 @@ class Validator {
     if (isInvalid) throw new Error(ERRORS.INVALID_INPUT);
 
     valuesArray.forEach((valueEntry) => {
-      return (newValuesObject[valueEntry[0]] = valueEntry[1].replace(/,/g, ""));
+      return (newValuesObject[valueEntry[0]] = valueEntry[1].replace(/\./g, '').replace(/,/g, "."));
     });
 
     return newValuesObject;
@@ -191,24 +191,24 @@ class EventCreator {
     ) =>
       (function () {
         jQuery(`#${initialValue}`).maskMoney({
-          thousands: ",",
-          decimal: ".",
+          thousands: ".",
+          decimal: ",",
           allowZero: true,
         });
         jQuery(`#${capitalInjection}`).maskMoney({
-          thousands: ",",
-          decimal: ".",
+          thousands: ".",
+          decimal: ",",
           allowZero: true,
         });
 
         jQuery(`#${interestRate}`).maskMoney({
-          thousands: ",",
-          decimal: ".",
+          thousands: ".",
+          decimal: ",",
           allowZero: true,
         });
         jQuery(`#${growthRate}`).maskMoney({
-          thousands: ",",
-          decimal: ".",
+          thousands: ".",
+          decimal: ",",
           allowZero: true,
         });
       })();
