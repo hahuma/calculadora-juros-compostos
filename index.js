@@ -15,7 +15,9 @@ class Validator {
     const valuesArray = Object.entries(valuesObject);
 
     const isInvalid = valuesArray.some((value) => {
-      const floatValue = parseFloat(value[1].replace(/\./g, '').replace(/,/g, ""));
+      const floatValue = parseFloat(
+        value[1].replace(/\./g, "").replace(/,/g, "")
+      );
       const isNaN = Number.isNaN(floatValue);
       const isNegative = Number(floatValue) < 0;
 
@@ -25,7 +27,9 @@ class Validator {
     if (isInvalid) throw new Error(ERRORS.INVALID_INPUT);
 
     valuesArray.forEach((valueEntry) => {
-      return (newValuesObject[valueEntry[0]] = valueEntry[1].replace(/\./g, '').replace(/,/g, "."));
+      return (newValuesObject[valueEntry[0]] = valueEntry[1]
+        .replace(/\./g, "")
+        .replace(/,/g, "."));
     });
 
     return newValuesObject;
@@ -115,7 +119,11 @@ class CompoundInterestsCalculator {
     let totalInvested = value;
 
     for (let i = 1; i <= this.totalPeriod; i++) {
-      const interest = 1 + this.interestRate;
+      const rate =
+        this.resultsInterval === "monthly"
+          ? this.interestRate / 100
+          : this.interestRate;
+      const interest = 1 + rate;
       const valueWithInterest = value * interest;
       value = valueWithInterest + this.capitalInjection;
 
@@ -162,6 +170,7 @@ class EventCreator {
     this.totalInterests = totalInterests;
     this.totalInvested = totalInvested;
     this.totalResult = totalResult;
+    this.firstResultIntervalChange = true;
   }
 
   start() {
@@ -202,19 +211,18 @@ class EventCreator {
         });
 
         jQuery(`#${interestRate}`).maskMoney({
-          thousands: ".",
+          thousands: "",
           decimal: ",",
           allowZero: true,
         });
         jQuery(`#${growthRate}`).maskMoney({
-          thousands: ".",
+          thousands: "",
           decimal: ",",
           allowZero: true,
         });
       })();
     jQuery(loadMasks());
 
-    let firstResultIntervalChange = true;
     let lastResultInterval = resultsInterval.value;
     resultsInterval.addEventListener("change", (event) => {
       const periodSpan = document.querySelector(`.period-span`);
@@ -232,11 +240,11 @@ class EventCreator {
 
       if (
         resultsInterval.value === "yearly" &&
-        !firstResultIntervalChange &&
+        !this.firstResultIntervalChange &&
         lastResultInterval != resultsInterval.value
       ) {
         interestRate.value = Formmater.yearToMonthPercentage(
-          interestRate.value
+          Number(interestRate.value.replace(",", "."))
         );
 
         totalPeriod.value = totalPeriod.value / 12;
@@ -244,17 +252,17 @@ class EventCreator {
 
       if (
         resultsInterval.value === "monthly" &&
-        !firstResultIntervalChange &&
+        !this.firstResultIntervalChange &&
         lastResultInterval != resultsInterval.value
       ) {
         interestRate.value = Formmater.monthToYearPercentage(
-          interestRate.value
+          Number(interestRate.value.replace(",", "."))
         );
 
         totalPeriod.value = totalPeriod.value * 12;
       }
 
-      firstResultIntervalChange = false;
+      this.firstResultIntervalChange = false;
       lastResultInterval = resultsInterval.value;
     });
 
