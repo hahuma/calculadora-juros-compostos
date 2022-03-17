@@ -62,13 +62,19 @@ class Formmater {
   }
 
   static monthToYearPercentage(yearlyPercentage) {
-    return ((Math.pow(yearlyPercentage / 100 + 1, 1 / 12) - 1) * 100).toFixed(
-      2
-    );
+    const formmated = ((Math.pow(yearlyPercentage / 100 + 1, 1 / 12) - 1) * 100)
+      .toFixed(2)
+
+    console.log({ yearlyPercentage, formmated });
+    return formmated;
   }
 
   static yearToMonthPercentage(monthlyPercentage) {
-    return ((Math.pow(1 + monthlyPercentage / 100, 12) - 1) * 100).toFixed(2);
+    const formmated = ((Math.pow(1 + monthlyPercentage / 100, 12) - 1) * 100)
+      .toFixed(2)
+
+    console.log({ monthlyPercentage, formmated });
+    return formmated;
   }
 }
 
@@ -119,11 +125,9 @@ class CompoundInterestsCalculator {
     let totalInvested = value;
 
     for (let i = 1; i <= this.totalPeriod; i++) {
-      const rate =
-        this.resultsInterval === "monthly"
-          ? this.interestRate / 100
-          : this.interestRate;
+      const rate = this.interestRate;
       const interest = 1 + rate;
+      console.log({ rate, interest });
       const valueWithInterest = value * interest;
       value = valueWithInterest + this.capitalInjection;
 
@@ -170,7 +174,6 @@ class EventCreator {
     this.totalInterests = totalInterests;
     this.totalInvested = totalInvested;
     this.totalResult = totalResult;
-    this.firstResultIntervalChange = true;
   }
 
   start() {
@@ -223,11 +226,14 @@ class EventCreator {
       })();
     jQuery(loadMasks());
 
+    let firstResultIntervalChange = true;
+
     let lastResultInterval = resultsInterval.value;
     resultsInterval.addEventListener("change", (event) => {
       const periodSpan = document.querySelector(`.period-span`);
       const interestSpan = document.querySelector(`.interest-span`);
 
+      console.log(interestRate.value.replace(",", "."));
       if (resultsInterval.value == "yearly") {
         periodSpan.innerText = "Tempo de investimento anual";
         interestSpan.innerText = "Taxa anual de juros";
@@ -240,30 +246,29 @@ class EventCreator {
 
       if (
         resultsInterval.value === "yearly" &&
-        !this.firstResultIntervalChange &&
+        !firstResultIntervalChange &&
         lastResultInterval != resultsInterval.value
       ) {
         interestRate.value = Formmater.yearToMonthPercentage(
           Number(interestRate.value.replace(",", "."))
-        );
+        ).replace('.', ',');
 
         totalPeriod.value = totalPeriod.value / 12;
       }
 
       if (
         resultsInterval.value === "monthly" &&
-        !this.firstResultIntervalChange &&
+        !firstResultIntervalChange &&
         lastResultInterval != resultsInterval.value
       ) {
         interestRate.value = Formmater.monthToYearPercentage(
           Number(interestRate.value.replace(",", "."))
-        );
+        ).replace('.', ',');
 
         totalPeriod.value = totalPeriod.value * 12;
       }
 
-      this.firstResultIntervalChange = false;
-      lastResultInterval = resultsInterval.value;
+      firstResultIntervalChange = false;
     });
 
     calculateButton.addEventListener("click", (event) => {
